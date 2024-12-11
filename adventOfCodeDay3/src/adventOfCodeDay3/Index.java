@@ -29,7 +29,7 @@ public class Index {
 				
 				
 				//grab 1 line
-				String line = scan.nextLine();
+				System.out.println(scan.next());
 				System.out.println("---------------");
 			
 		
