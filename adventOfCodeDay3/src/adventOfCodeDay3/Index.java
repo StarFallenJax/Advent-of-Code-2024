@@ -13,7 +13,7 @@ public class Index {
 	 * Extract the next mult command from the given line
 	 *
 	 * Returns an empty string if none exists
-	 */
+	 
 	public String extractMult(String line) {
 		
 		if(line.indexOf("mul") == -1) 
@@ -31,70 +31,51 @@ public class Index {
 			return line.substring(start,end);
 		}
 	}
-	
+*/	
 	
 	
 	
 
 	public static void main(String[] args) {
-		
+        // The file where your input data is stored
+        File file = new File("input4.txt");
 
-		// is in your project
-		
-		File file = new File("input4.txt");
-		
+        try {
+            Scanner scan = new Scanner(file);
+            long totalSum = 0;  // Use long to handle large numbers
 
+            // Loop through each line in the file
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();  // Read the entire line
+                String regex = "mul\\((\\d+),(\\d+)\\)";  // Regular expression to find mul(X,Y)
 
-		try {
+                // Create a matcher to find mul(X,Y) patterns
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(line);
 
-			Scanner scan = new Scanner(file);
-			int count = 0;
-			
-			
-			while(scan.hasNext()) {
-				
-				
-				//grab 1 line
-			
-				
-				String line = scan.next();
-				String regex = "mul\\((\\d+),(\\d+)\\)";
-				
-				Pattern pattern = Pattern.compile(regex);
-				Matcher matcher = pattern.matcher(line);
-				
-				List<String> validCalls = new ArrayList<>();
-				
-				while(matcher.find()) {
-					
-					validCalls.add(matcher.group());
-					
-					
-					
-				}
-				
-				System.out.println("Valid 'mul' calls:");
-				for(String call : validCalls) {
-					System.out.println(call);
-				}
-		
-		
-				//split the line into a string array
-				
-				
-				
-			}
-			
-			scan.close();
-	
-			
+                // Loop through all matches of mul(X,Y) in the line
+                while (matcher.find()) {
+                    // Extract the values of X and Y from the match
+                    int X = Integer.parseInt(matcher.group(1));
+                    int Y = Integer.parseInt(matcher.group(2));
 
-		} catch (FileNotFoundException e) {
+                    // Calculate the product and add it to the total sum
+                    totalSum += (long) X * Y;  // Use long to handle potential overflow
 
-			e.printStackTrace();
-		}
-		
+                    // Optional: print each multiplication and sum
+                    System.out.println("Found: mul(" + X + "," + Y + ") = " + (X * Y));
+                }
+            }
 
-	}
+            // After processing all lines, print the total sum
+            System.out.println("Total sum of all multiplications: " + totalSum);
+
+            // Close the scanner
+            scan.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
