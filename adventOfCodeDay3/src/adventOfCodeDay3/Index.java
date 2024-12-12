@@ -69,6 +69,14 @@ public class Index {
 
             // After processing all lines, print the total sum
             System.out.println("Total sum of all multiplications: " + totalSum);
+            
+            String[] myStrings = {"1", "2", "3"};
+
+            for(String el : myStrings){
+                el = el + "1";
+            }
+            
+            System.out.println(myStrings[0]);
 
             // Close the scanner
             scan.close();
